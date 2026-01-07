@@ -1,0 +1,60 @@
+
+
+## 🧩 Components Used
+
+1. ESP32 Development Board
+2. Soil Moisture Sensor
+3. 5V Relay Module
+4. Mini Water Pump
+5. External Power Supply (for pump)
+6. Jumper Wires
+
+---
+
+## 🔌 Circuit Connections
+
+### 🌱 Soil Moisture Sensor
+
+| Sensor Pin | ESP32 Pin |
+| ---------- | --------- |
+| VCC        | 3.3V      |
+| GND        | GND       |
+| AO         | GPIO 34   |
+
+---
+
+### 🔁 Relay Module
+
+| Relay Pin | ESP32 Pin |
+| --------- | --------- |
+| VCC       | 5V        |
+| GND       | GND       |
+| IN        | GPIO 25   |
+
+---
+
+### 💧 Water Pump
+
+* Pump **positive (+)** → Relay **NO (Normally Open)**
+* Relay **COM** → External Power Supply **positive (+)**
+* Pump **negative (–)** → External Power Supply **negative (–)**
+
+> ⚠️ The pump uses an external power supply to protect the ESP32 from high current.
+
+---
+
+## ⚙️ Operation / Working
+
+* The soil moisture sensor sends an **analog signal** to the ESP32.
+* ESP32 continuously monitors the moisture level.
+* When moisture falls **below the defined threshold**:
+
+  * ESP32 sends a **HIGH** signal to the relay.
+  * Relay activates and the **water pump turns ON**.
+* When the soil becomes sufficiently moist:
+
+  * ESP32 sends a **LOW** signal to the relay.
+  * Relay deactivates and the **pump turns OFF**.
+* The system operates **fully automatically** without manual control.
+
+
