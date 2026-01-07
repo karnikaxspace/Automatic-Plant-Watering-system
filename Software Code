@@ -1,0 +1,46 @@
+"""
+Smart Plant Watering System
+---------------------------
+This script reads soil moisture data using an analog sensor
+connected to ESP32 and controls an LED based on moisture level.
+
+Author: Karnika
+Board: ESP32
+"""
+
+from machine import ADC, Pin
+from time import sleep
+
+# ------------------- Pin Configuration -------------------
+
+LED_PIN = 2          # Onboard LED pin
+MOISTURE_PIN = 34    # ADC pin connected to soil moisture sensor
+
+# ------------------- Hardware Initialization -------------------
+
+# Initialize LED
+led = Pin(LED_PIN, Pin.OUT)
+
+# Initialize ADC for moisture sensor
+moisture = ADC(Pin(MOISTURE_PIN))
+moisture.atten(ADC.ATTN_11DB)      # Allows full 0–3.3V range
+moisture.width(ADC.WIDTH_12BIT)    # 12-bit resolution (0–4095)
+
+# ------------------- Threshold -------------------
+
+DRY_THRESHOLD = 3000   # Adjust based on calibration
+
+# ------------------- Main Loop -------------------
+
+while True:
+    moisture_value = moisture.read()
+    print("Moisture Level:", moisture_value)
+
+    if moisture_value > DRY_THRESHOLD:
+        led.off()
+        print("Status: Soil is dry → LED OFF")
+    else:
+        led.on()
+        print("Status: Soil is wet → LED ON")
+
+    sleep(1)
