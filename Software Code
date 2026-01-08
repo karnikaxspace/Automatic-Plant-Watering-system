@@ -1,5 +1,5 @@
 """
-Smart Plant Watering System.......
+Smart Plant Watering System...
 ---------------------------
 This script reads soil moisture data using an analog sensor
 connected to ESP32 and controls an LED based on moisture level.
